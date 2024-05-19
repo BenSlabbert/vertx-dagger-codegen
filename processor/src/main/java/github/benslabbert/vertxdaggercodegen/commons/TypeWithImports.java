@@ -13,9 +13,9 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.TypeVariable;
 import javax.lang.model.type.WildcardType;
 
-public record ReturnTypeWithImports(String printableName, Set<String> canonicalImports) {
+public record TypeWithImports(String printableName, Set<String> canonicalImports) {
 
-  public static ReturnTypeWithImports of(TypeMirror typeMirror) {
+  public static TypeWithImports of(TypeMirror typeMirror) {
     TypeKind kind = typeMirror.getKind();
     String typeAsString = typeMirror.toString();
 
@@ -35,11 +35,11 @@ public record ReturnTypeWithImports(String printableName, Set<String> canonicalI
     }
 
     if (kind == TypeKind.VOID) {
-      return new ReturnTypeWithImports(typeAsString, Set.of());
+      return new TypeWithImports(typeAsString, Set.of());
     }
 
     if (kind.isPrimitive()) {
-      return new ReturnTypeWithImports(typeAsString, Set.of());
+      return new TypeWithImports(typeAsString, Set.of());
     }
 
     if (kind == TypeKind.ARRAY) {
@@ -49,13 +49,13 @@ public record ReturnTypeWithImports(String printableName, Set<String> canonicalI
     return handleDeclaredType((DeclaredType) typeMirror, typeAsString);
   }
 
-  private static ReturnTypeWithImports handleDeclaredType(DeclaredType dt, String typeAsString) {
+  private static TypeWithImports handleDeclaredType(DeclaredType dt, String typeAsString) {
     List<? extends TypeMirror> typeArguments = dt.getTypeArguments();
 
     if (typeArguments.isEmpty()) {
       // simple case, no type params
       String substring = typeAsString.substring(typeAsString.lastIndexOf('.') + 1);
-      return new ReturnTypeWithImports(substring, Set.of(typeAsString));
+      return new TypeWithImports(substring, Set.of(typeAsString));
     }
 
     Set<String> imports = new HashSet<>();
@@ -96,7 +96,7 @@ public record ReturnTypeWithImports(String printableName, Set<String> canonicalI
 
     String format = String.format("%s<%s>", shortClassName, params);
 
-    return new ReturnTypeWithImports(format, imports);
+    return new TypeWithImports(format, imports);
   }
 
   private static void addArgumentImports(
@@ -123,14 +123,14 @@ public record ReturnTypeWithImports(String printableName, Set<String> canonicalI
     }
   }
 
-  private static ReturnTypeWithImports handleArray(ArrayType at, String typeAsString) {
+  private static TypeWithImports handleArray(ArrayType at, String typeAsString) {
     TypeMirror componentType = at.getComponentType();
 
     if (componentType.getKind().isPrimitive()) {
-      return new ReturnTypeWithImports(typeAsString, Set.of());
+      return new TypeWithImports(typeAsString, Set.of());
     }
 
     String substring = typeAsString.substring(typeAsString.lastIndexOf('.') + 1);
-    return new ReturnTypeWithImports(substring, Set.of(componentType.toString()));
+    return new TypeWithImports(substring, Set.of(componentType.toString()));
   }
 }

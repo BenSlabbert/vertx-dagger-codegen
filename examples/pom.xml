@@ -34,12 +34,21 @@
       <optional>true</optional>
     </dependency>
     <dependency>
+      <groupId>github.benslabbert.jsonwriter</groupId>
+      <artifactId>processor</artifactId>
+    </dependency>
+    <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
     </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.auto.value</groupId>
+      <artifactId>auto-value-annotations</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>github.benslabbert.vertx-dagger-codegen</groupId>
@@ -76,8 +85,19 @@
             <arg>-parameters</arg>
             <arg>-Aoption=value for option!</arg>
             <arg>-AprocessCustom=github.benslabbert.vertxdaggercodegen.example.custom.Custom,github.benslabbert.vertxdaggercodegen.example.custom.MyAdvisor</arg>
+            <arg>-Apackage=github.benslabbert.vertxdaggercodegen.example.serviceproxy</arg>
           </compilerArgs>
           <annotationProcessorPaths>
+            <path>
+              <groupId>com.google.auto.value</groupId>
+              <artifactId>auto-value</artifactId>
+              <version>${google-auto-value.version}</version>
+            </path>
+            <path>
+              <groupId>github.benslabbert.jsonwriter</groupId>
+              <artifactId>processor</artifactId>
+              <version>${revision}</version>
+            </path>
             <path>
               <groupId>github.benslabbert.vertx-dagger-codegen</groupId>
               <artifactId>processor</artifactId>
@@ -101,6 +121,7 @@
             </goals>
             <phase>package</phase>
             <configuration>
+              <skip>${copyDeps.skip}</skip>
               <outputDirectory>${project.build.directory}/lib</outputDirectory>
             </configuration>
           </execution>
@@ -122,6 +143,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
         <configuration>
+          <skip>${shade.skip}</skip>
           <shadedArtifactAttached>true</shadedArtifactAttached>
           <shadedClassifierName>jar-with-dependencies</shadedClassifierName>
           <createDependencyReducedPom>false</createDependencyReducedPom>
