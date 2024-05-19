@@ -4,7 +4,7 @@ package github.benslabbert.vertxdaggercodegen.advice;
 import com.google.auto.service.AutoService;
 import github.benslabbert.vertxdaggercodegen.annotation.advice.Advised;
 import github.benslabbert.vertxdaggercodegen.commons.GenerationException;
-import github.benslabbert.vertxdaggercodegen.commons.ReturnTypeWithImports;
+import github.benslabbert.vertxdaggercodegen.commons.TypeWithImports;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -178,8 +178,7 @@ public class AdviceGenerator extends AbstractProcessor {
               : method.getModifiers().iterator().next().toString() + " ";
       Name methodName = method.getSimpleName();
 
-      ReturnTypeWithImports returnTypeWithImports =
-          ReturnTypeWithImports.of(method.getReturnType());
+      TypeWithImports returnTypeWithImports = TypeWithImports.of(method.getReturnType());
       String returnType = returnTypeWithImports.printableName();
 
       List<String> methodParams =
@@ -474,8 +473,8 @@ public class AdviceGenerator extends AbstractProcessor {
 
     Set<String> methodImports =
         methods.stream()
-            .map(m -> ReturnTypeWithImports.of(m.getReturnType()))
-            .map(ReturnTypeWithImports::canonicalImports)
+            .map(m -> TypeWithImports.of(m.getReturnType()))
+            .map(TypeWithImports::canonicalImports)
             .flatMap(Set::stream)
             .collect(Collectors.toSet());
 
