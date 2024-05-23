@@ -20,6 +20,10 @@
       <version>${revision}</version>
     </dependency>
     <dependency>
+      <groupId>github.benslabbert.jsonwriter</groupId>
+      <artifactId>annotation</artifactId>
+    </dependency>
+    <dependency>
       <groupId>github.benslabbert.vertx-dagger-codegen</groupId>
       <artifactId>commons</artifactId>
       <version>${revision}</version>

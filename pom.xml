@@ -34,11 +34,16 @@
   <properties>
     <copyDeps.skip>false</copyDeps.skip>
     <shade.skip>false</shade.skip>
-    <jsonwriter.version>1.2.0</jsonwriter.version>
+    <jsonwriter.version>1.5.0</jsonwriter.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>github.benslabbert.jsonwriter</groupId>
+        <artifactId>annotation</artifactId>
+        <version>${jsonwriter.version}</version>
+      </dependency>
       <dependency>
         <groupId>github.benslabbert.jsonwriter</groupId>
         <artifactId>processor</artifactId>
