@@ -1,3 +1,4 @@
+/* Licensed under Apache-2.0 2024. */
 package github.benslabbert.vertxdaggercodegen.annotation.projection;
 
 import java.lang.annotation.ElementType;
@@ -9,5 +10,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 public @interface Column {
 
-    String name() default "";
+  String name() default "";
 }
