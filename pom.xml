@@ -49,6 +49,11 @@
         <artifactId>processor</artifactId>
         <version>${jsonwriter.version}</version>
       </dependency>
+      <dependency>
+        <groupId>io.vertx</groupId>
+        <artifactId>vertx-sql-client-templates</artifactId>
+        <version>${vertx.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
