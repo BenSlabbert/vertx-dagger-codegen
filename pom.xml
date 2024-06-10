@@ -34,7 +34,7 @@
   <properties>
     <copyDeps.skip>false</copyDeps.skip>
     <shade.skip>false</shade.skip>
-    <jsonwriter.version>1.15.0</jsonwriter.version>
+    <jsonwriter.version>1.17.0</jsonwriter.version>
   </properties>
 
   <dependencyManagement>
