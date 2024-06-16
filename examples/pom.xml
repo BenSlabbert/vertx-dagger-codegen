@@ -38,10 +38,6 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>jakarta.validation</groupId>
-      <artifactId>jakarta.validation-api</artifactId>
-    </dependency>
-    <dependency>
       <groupId>github.benslabbert.jsonwriter</groupId>
       <artifactId>processor</artifactId>
     </dependency>
