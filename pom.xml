@@ -35,7 +35,6 @@
     <copyDeps.skip>false</copyDeps.skip>
     <shade.skip>false</shade.skip>
     <jsonwriter.version>1.22.0</jsonwriter.version>
-    <jakarta.version>3.1.0</jakarta.version>
   </properties>
 
   <dependencyManagement>
@@ -44,11 +43,6 @@
         <groupId>github.benslabbert.jsonwriter</groupId>
         <artifactId>annotation</artifactId>
         <version>${jsonwriter.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>jakarta.validation</groupId>
-        <artifactId>jakarta.validation-api</artifactId>
-        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>github.benslabbert.jsonwriter</groupId>
