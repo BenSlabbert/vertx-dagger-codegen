@@ -5,7 +5,7 @@
   <parent>
     <groupId>github.benslabbert</groupId>
     <artifactId>vertx-dagger-bom</artifactId>
-    <version>1.35.0</version>
+    <version>1.38.0</version>
   </parent>
 
   <groupId>github.benslabbert.vertx-dagger-codegen</groupId>
@@ -34,7 +34,7 @@
   <properties>
     <copyDeps.skip>false</copyDeps.skip>
     <shade.skip>false</shade.skip>
-    <jsonwriter.version>1.23.0</jsonwriter.version>
+    <jsonwriter.version>1.25.0</jsonwriter.version>
   </properties>
 
   <dependencyManagement>
