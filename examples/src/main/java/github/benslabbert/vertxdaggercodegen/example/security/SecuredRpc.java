@@ -2,22 +2,35 @@
 package github.benslabbert.vertxdaggercodegen.example.security;
 
 import github.benslabbert.vertxdaggercodegen.annotation.security.SecuredProxy;
+import github.benslabbert.vertxdaggercodegen.annotation.security.SecuredProxy.PermissionBasedPermission;
+import github.benslabbert.vertxdaggercodegen.annotation.security.SecuredProxy.RoleBasedPermission;
+import github.benslabbert.vertxdaggercodegen.annotation.security.SecuredProxy.SecuredAction;
+import github.benslabbert.vertxdaggercodegen.annotation.security.SecuredProxy.WildcardBasedPermission;
 
 @SecuredProxy
 public interface SecuredRpc {
 
-  @SecuredProxy.SecuredAction(
+  @SecuredAction(
       group = "group",
       role = "role",
       permissions = {"p1", "p2"})
   void action1();
 
-  @SecuredProxy.SecuredAction(
+  @SecuredAction(
       group = "group",
       role = "role",
       permissions = {"p3"})
   void action2();
 
-  @SecuredProxy.SecuredAction(group = "group", role = "role")
+  @SecuredAction(group = "group", role = "role")
   void action3();
+
+  @RoleBasedPermission(role = "role", resource = "resource")
+  void role();
+
+  @PermissionBasedPermission(permission = "permission", resource = "resource")
+  void permission();
+
+  @WildcardBasedPermission(permission = "wildcard", resource = "resource")
+  void wildcard();
 }

@@ -10,6 +10,27 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 public @interface SecuredProxy {
 
+  @interface RoleBasedPermission {
+
+    String role();
+
+    String resource() default "";
+  }
+
+  @interface PermissionBasedPermission {
+
+    String permission();
+
+    String resource() default "";
+  }
+
+  @interface WildcardBasedPermission {
+
+    String permission();
+
+    String resource() default "";
+  }
+
   @interface SecuredAction {
 
     String group();

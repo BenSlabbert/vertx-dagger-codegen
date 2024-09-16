@@ -82,6 +82,11 @@ public class SecuredProxyGenerator extends AbstractProcessor {
       out.println();
       out.println(
           "import github.benslabbert.vertxdaggercodegen.commons.security.rpc.SecuredAction;");
+      out.println(
+          "import github.benslabbert.vertxdaggercodegen.commons.security.rpc.SecuredUnion;");
+      out.println("import github.benslabbert.vertxdaggercodegen.commons.security.rpc.Role;");
+      out.println("import github.benslabbert.vertxdaggercodegen.commons.security.rpc.Permission;");
+      out.println("import github.benslabbert.vertxdaggercodegen.commons.security.rpc.Wildcard;");
       out.println();
       out.println("import java.util.List;");
       out.println("import java.util.Map;");
@@ -95,7 +100,7 @@ public class SecuredProxyGenerator extends AbstractProcessor {
       out.printf("public final class %s {%n", generatedClassName);
       out.println();
 
-      out.println("\tpublic static Map<String, SecuredAction> getSecuredActions() {");
+      out.println("\tpublic static Map<String, SecuredUnion> getSecuredActions() {");
       out.println("\t\treturn Map.ofEntries(");
       boolean isLast = false;
       for (int i = 0; i < securedMethods.size(); i++) {
@@ -105,14 +110,49 @@ public class SecuredProxyGenerator extends AbstractProcessor {
         String commaStr = isLast ? "" : ",";
 
         SecuredMethod securedMethod = securedMethods.get(i);
-        out.printf(
-            "\t\t\tMap.entry(\"%s\", new SecuredAction(\"%s\", \"%s\", List.of(%s)))%s%n",
-            securedMethod.methodName(),
-            securedMethod.group(),
-            securedMethod.role(),
-            String.join(
-                ", ", securedMethod.permissions().stream().map(s -> "\"" + s + "\"").toList()),
-            commaStr);
+
+        if (null != securedMethod.securedAction()) {
+          out.printf(
+              "\t\t\tMap.entry(\"%s\", SecuredUnion.securedAction(new SecuredAction(\"%s\", \"%s\","
+                  + " List.of(%s))))%s%n",
+              securedMethod.methodName(),
+              securedMethod.securedAction().group(),
+              securedMethod.securedAction().role(),
+              String.join(
+                  ", ",
+                  securedMethod.securedAction().permissions().stream()
+                      .map(s -> "\"" + s + "\"")
+                      .toList()),
+              commaStr);
+        }
+
+        if (null != securedMethod.roleBasedPermission()) {
+          out.printf(
+              "\t\t\tMap.entry(\"%s\", SecuredUnion.role(new Role(\"%s\", \"%s\")))%s%n",
+              securedMethod.methodName(),
+              securedMethod.roleBasedPermission().role(),
+              securedMethod.roleBasedPermission().resource(),
+              commaStr);
+        }
+
+        if (null != securedMethod.permissionBasedPermission()) {
+          out.printf(
+              "\t\t\tMap.entry(\"%s\", SecuredUnion.permission(new Permission(\"%s\","
+                  + " \"%s\")))%s%n",
+              securedMethod.methodName(),
+              securedMethod.permissionBasedPermission().permission(),
+              securedMethod.permissionBasedPermission().resource(),
+              commaStr);
+        }
+
+        if (null != securedMethod.wildcardBasedPermission()) {
+          out.printf(
+              "\t\t\tMap.entry(\"%s\", SecuredUnion.wildcard(new Wildcard(\"%s\", \"%s\")))%s%n",
+              securedMethod.methodName(),
+              securedMethod.wildcardBasedPermission().permission(),
+              securedMethod.wildcardBasedPermission().resource(),
+              commaStr);
+        }
       }
       out.println("\t\t);");
       out.println("\t}");
@@ -127,20 +167,91 @@ public class SecuredProxyGenerator extends AbstractProcessor {
         .filter(e -> ElementKind.METHOD == e.getKind())
         .forEach(
             e -> {
-              var annotation = e.getAnnotation(SecuredProxy.SecuredAction.class);
-              if (null != annotation) {
-                securedMethods.add(
-                    new SecuredMethod(
-                        e.getSimpleName().toString(),
-                        annotation.group(),
-                        annotation.role(),
-                        List.of(annotation.permissions())));
-              }
+              addSecuredAction(e, securedMethods);
+              addRole(e, securedMethods);
+              addPermission(e, securedMethods);
+              addWildcard(e, securedMethods);
             });
 
     return securedMethods;
   }
 
+  private static void addSecuredAction(Element e, List<SecuredMethod> securedMethods) {
+    var annotation = e.getAnnotation(SecuredProxy.SecuredAction.class);
+    if (null == annotation) {
+      return;
+    }
+    SecuredMethod sm =
+        new SecuredMethod(
+            e.getSimpleName().toString(),
+            new SecuredMethod.SecuredAction(
+                annotation.group(), annotation.role(), List.of(annotation.permissions())),
+            null,
+            null,
+            null);
+    securedMethods.add(sm);
+  }
+
+  private static void addRole(Element e, List<SecuredMethod> securedMethods) {
+    var annotation = e.getAnnotation(SecuredProxy.RoleBasedPermission.class);
+    if (null == annotation) {
+      return;
+    }
+    SecuredMethod sm =
+        new SecuredMethod(
+            e.getSimpleName().toString(),
+            null,
+            new SecuredMethod.RoleBasedPermission(annotation.role(), annotation.resource()),
+            null,
+            null);
+    securedMethods.add(sm);
+  }
+
+  private static void addPermission(Element e, List<SecuredMethod> securedMethods) {
+    var annotation = e.getAnnotation(SecuredProxy.PermissionBasedPermission.class);
+    if (null == annotation) {
+      return;
+    }
+    SecuredMethod sm =
+        new SecuredMethod(
+            e.getSimpleName().toString(),
+            null,
+            null,
+            new SecuredMethod.PermissionBasedPermission(
+                annotation.permission(), annotation.resource()),
+            null);
+    securedMethods.add(sm);
+  }
+
+  private static void addWildcard(Element e, List<SecuredMethod> securedMethods) {
+    var annotation = e.getAnnotation(SecuredProxy.WildcardBasedPermission.class);
+    if (null == annotation) {
+      return;
+    }
+    SecuredMethod sm =
+        new SecuredMethod(
+            e.getSimpleName().toString(),
+            null,
+            null,
+            null,
+            new SecuredMethod.WildcardBasedPermission(
+                annotation.permission(), annotation.resource()));
+    securedMethods.add(sm);
+  }
+
   private record SecuredMethod(
-      String methodName, String group, String role, List<String> permissions) {}
+      String methodName,
+      SecuredAction securedAction,
+      RoleBasedPermission roleBasedPermission,
+      PermissionBasedPermission permissionBasedPermission,
+      WildcardBasedPermission wildcardBasedPermission) {
+
+    record SecuredAction(String group, String role, List<String> permissions) {}
+
+    record RoleBasedPermission(String role, String resource) {}
+
+    record PermissionBasedPermission(String permission, String resource) {}
+
+    record WildcardBasedPermission(String permission, String resource) {}
+  }
 }
