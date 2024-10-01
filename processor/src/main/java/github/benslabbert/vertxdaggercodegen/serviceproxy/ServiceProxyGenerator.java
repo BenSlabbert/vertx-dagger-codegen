@@ -1,7 +1,6 @@
 /* Licensed under Apache-2.0 2024. */
 package github.benslabbert.vertxdaggercodegen.serviceproxy;
 
-import com.google.auto.service.AutoService;
 import github.benslabbert.vertxdaggercodegen.annotation.serviceproxy.GenerateProxies;
 import github.benslabbert.vertxdaggercodegen.commons.GenerationException;
 import github.benslabbert.vertxdaggercodegen.commons.TypeWithImports;
@@ -14,7 +13,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
@@ -26,7 +24,6 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.tools.JavaFileObject;
 
-@AutoService(Processor.class)
 public class ServiceProxyGenerator extends AbstractProcessor {
 
   @Override

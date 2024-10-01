@@ -16,10 +16,6 @@
       <version>${revision}</version>
     </dependency>
     <dependency>
-      <groupId>com.google.auto.service</groupId>
-      <artifactId>auto-service</artifactId>
-    </dependency>
-    <dependency>
       <groupId>github.benslabbert.vertx-dagger-codegen</groupId>
       <artifactId>commons</artifactId>
       <version>${revision}</version>

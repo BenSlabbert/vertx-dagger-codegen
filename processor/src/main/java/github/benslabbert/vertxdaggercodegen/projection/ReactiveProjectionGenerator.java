@@ -1,7 +1,6 @@
 /* Licensed under Apache-2.0 2024. */
 package github.benslabbert.vertxdaggercodegen.projection;
 
-import com.google.auto.service.AutoService;
 import github.benslabbert.vertxdaggercodegen.annotation.projection.Column;
 import github.benslabbert.vertxdaggercodegen.annotation.projection.ReactiveProjection;
 import github.benslabbert.vertxdaggercodegen.commons.GenerationException;
@@ -12,7 +11,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
@@ -20,7 +18,6 @@ import javax.lang.model.element.Name;
 import javax.lang.model.element.TypeElement;
 import javax.tools.JavaFileObject;
 
-@AutoService(Processor.class)
 public class ReactiveProjectionGenerator extends AbstractProcessor {
 
   @Override

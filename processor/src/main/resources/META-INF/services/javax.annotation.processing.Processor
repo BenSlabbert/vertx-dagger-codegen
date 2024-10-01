@@ -1,0 +1,5 @@
+github.benslabbert.vertxdaggercodegen.url.RestHandlerGenerator
+github.benslabbert.vertxdaggercodegen.advice.AdviceGenerator
+github.benslabbert.vertxdaggercodegen.projection.ReactiveProjectionGenerator
+github.benslabbert.vertxdaggercodegen.security.SecuredProxyGenerator
+github.benslabbert.vertxdaggercodegen.serviceproxy.ServiceProxyGenerator
