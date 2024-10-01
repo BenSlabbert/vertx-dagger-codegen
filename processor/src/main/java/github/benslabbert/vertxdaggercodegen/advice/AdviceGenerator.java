@@ -1,7 +1,6 @@
 /* Licensed under Apache-2.0 2023. */
 package github.benslabbert.vertxdaggercodegen.advice;
 
-import com.google.auto.service.AutoService;
 import github.benslabbert.vertxdaggercodegen.annotation.advice.Advised;
 import github.benslabbert.vertxdaggercodegen.commons.GenerationException;
 import github.benslabbert.vertxdaggercodegen.commons.TypeWithImports;
@@ -16,7 +15,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.inject.Singleton;
 import javax.lang.model.SourceVersion;
@@ -36,7 +34,6 @@ import javax.lang.model.util.ElementFilter;
 import javax.lang.model.util.Types;
 import javax.tools.JavaFileObject;
 
-@AutoService(Processor.class)
 public class AdviceGenerator extends AbstractProcessor {
 
   private static final String OPTION = "option";
