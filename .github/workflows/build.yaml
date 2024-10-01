@@ -21,5 +21,9 @@ jobs:
         java-version: "23"
         java-package: "jdk"
         cache: "maven"
+    - name: "Set up Maven"
+      uses: "stCarolas/setup-maven@v5"
+      with:
+        maven-version: "3.9.9"
     - run: "make M='mvn -s settings.xml' fmtCheck"
     - run: "make M='mvn -s settings.xml'"
