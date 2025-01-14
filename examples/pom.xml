@@ -15,20 +15,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>github.benslabbert.vertx-dagger-codegen</groupId>
-      <artifactId>annotation</artifactId>
-      <version>${revision}</version>
-    </dependency>
-    <dependency>
-      <groupId>github.benslabbert.jsonwriter</groupId>
-      <artifactId>annotation</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>github.benslabbert.vertx-dagger-codegen</groupId>
-      <artifactId>commons</artifactId>
-      <version>${revision}</version>
-    </dependency>
-    <dependency>
       <groupId>com.google.dagger</groupId>
       <artifactId>dagger</artifactId>
     </dependency>
@@ -36,6 +22,20 @@
       <groupId>com.google.dagger</groupId>
       <artifactId>dagger-compiler</artifactId>
       <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>github.benslabbert.jsonwriter</groupId>
+      <artifactId>annotation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>github.benslabbert.vertx-dagger-codegen</groupId>
+      <artifactId>annotation</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
+      <groupId>github.benslabbert.vertx-dagger-codegen</groupId>
+      <artifactId>commons</artifactId>
+      <version>${revision}</version>
     </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
