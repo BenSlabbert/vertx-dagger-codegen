@@ -21,6 +21,7 @@
     <module>processor</module>
     <module>annotation</module>
     <module>commons</module>
+    <module>bom</module>
   </modules>
 
   <distributionManagement>
