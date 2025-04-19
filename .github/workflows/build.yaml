@@ -41,6 +41,8 @@ jobs:
       uses: "stCarolas/setup-maven@v5"
       with:
         maven-version: "3.9.9"
+    - run: "mvn -version"
+    - run: "java -version"
     - run: "make M='mvn -s settings.xml' fmtCheck"
     - run: "make M='mvn -s settings.xml'"
     - name: "Perform CodeQL Analysis"
