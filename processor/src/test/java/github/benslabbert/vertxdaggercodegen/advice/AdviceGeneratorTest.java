@@ -18,8 +18,6 @@ class AdviceGeneratorTest {
 
     assertAbout(JavaSourceSubjectFactory.javaSource())
         .that(JavaFileObjects.forResource(resource))
-        .withCompilerOptions(
-            "-AprocessCustom=github.benslabbert.vertxdaggercodegen.example.custom.Custom")
         .processedWith(new AdviceGenerator())
         .compilesWithoutError();
   }
