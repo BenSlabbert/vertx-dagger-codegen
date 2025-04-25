@@ -47,3 +47,8 @@ jobs:
     - run: "make M='mvn -s settings.xml'"
     - name: "Perform CodeQL Analysis"
       uses: "github/codeql-action/analyze@v3"
+    - name: "Submit Dependency Snapshot"
+      uses: "advanced-security/maven-dependency-submission-action@v4"
+      with:
+        token: "${{ secrets.GH_TOKEN }}"
+        maven-args: "-s settings.xml"
