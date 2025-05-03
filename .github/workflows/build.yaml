@@ -43,7 +43,7 @@ jobs:
         maven-version: "3.9.9"
     - run: "mvn -version"
     - run: "java -version"
-    - run: "mvn -s settings.xml clean spotless:check install -DskipTests=true"
+    - run: "mvn -s settings.xml clean spotless:check install"
     - name: "Perform CodeQL Analysis"
       uses: "github/codeql-action/analyze@v3"
     - name: "Submit Dependency Snapshot"

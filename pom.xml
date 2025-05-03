@@ -5,7 +5,7 @@
   <parent>
     <groupId>github.benslabbert</groupId>
     <artifactId>vertx-dagger-bom</artifactId>
-    <version>3.7.0</version>
+    <version>3.9.0</version>
   </parent>
 
   <groupId>github.benslabbert.vertx-dagger-codegen</groupId>
@@ -33,9 +33,13 @@
   </distributionManagement>
 
   <properties>
+    <!--config-->
     <copyDeps.skip>false</copyDeps.skip>
     <shade.skip>false</shade.skip>
-    <vertx-json-writer.version>1.101.0</vertx-json-writer.version>
+
+    <!--deps-->
+    <vertx-json-writer.version>1.103.0</vertx-json-writer.version>
+    <compile-testing.version>1.1.0</compile-testing.version>
   </properties>
 
   <dependencyManagement>
@@ -51,6 +55,12 @@
         <groupId>io.vertx</groupId>
         <artifactId>vertx-sql-client-templates</artifactId>
         <version>${vertx.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>github.benslabbert.fork</groupId>
+        <artifactId>compile-testing</artifactId>
+        <version>${compile-testing.version}</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
