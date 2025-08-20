@@ -38,7 +38,7 @@
     <shade.skip>false</shade.skip>
 
     <!--deps-->
-    <vertx-json-writer.version>1.164.0</vertx-json-writer.version>
+    <vertx-json-writer.version>1.165.0</vertx-json-writer.version>
     <compile-testing.version>1.2.0</compile-testing.version>
   </properties>
 
